@@ -1,70 +1,15 @@
-# Getting Started with Create React App
+# Step 1 - Get the user's wallet address
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Step 2 - Use the wallet address to get the assets using https://api.opensea.io/api/v1/assets?owner=USERS_WALLET_ADDRESS
 
-## Available Scripts
+# Step 3 - Loop through the NFTs that the user owns
 
-In the project directory, you can run:
+# Step 4 - For each NFT, you'll see the contract address under the 'asset_contract' object and slug under the 'collection' object for each NFT in the response
 
-### `npm start`
+# Step 5 - Use the slug for https://api.opensea.io/api/v1/collection/SLUG_GOES_HERE/stats
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# So, if you want to start with a user's wallet address, you'll have to do it in two steps.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Step 1 - get their wallet address and then use this endpoint to get all the NFTs that the person owns: https://api.opensea.io/api/v1/assets?owner=0x026b2B61A8657948eA1891BdE2a0E33b75eEBA3c
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Step 2 - For each NFT you find, you can use the address under 'asset_contract' object and then use this endpoint to get all the NFTs in that collection: https://api.opensea.io/api/v1/assets?asset_contract_address=0x60e4d786628fea6478f785a6d7e704777c86a7c6
