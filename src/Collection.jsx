@@ -4,6 +4,10 @@ import { Typography, CircularProgress } from "@mui/material";
 import logo from "./assets/eth.png";
 
 const useStyles = makeStyles({
+  parent: {
+    marginBottom: "2.5rem",
+  },
+
   banner: {
     width: "100%",
     height: "200px",
@@ -13,6 +17,7 @@ const useStyles = makeStyles({
     fontFamily: "Titillium Web !important",
     fontWeight: "600 !important",
     marginTop: "3rem !important",
+    color: "#fff",
   },
   collectionParent: {
     display: "flex",
@@ -61,83 +66,98 @@ const useStyles = makeStyles({
     justifyContent: "center",
     fontFamily: "Nunito !important",
     fontWeight: "500 !important",
+    color: "#fff",
   },
 });
 
 const Collection = ({ collectionData }) => {
   const classes = useStyles();
 
+  function kFormatter(num) {
+    return Math.abs(num) > 999
+      ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+      : Math.sign(num) * Math.abs(num);
+  }
+
   return (
     <>
-      <div>
-        <img
-          src={collectionData?.banner_image_url}
-          alt={collectionData?.name}
-          className={classes.banner}
-        />
-      </div>
+      {collectionData !== null ? (
+        <div className={classes.parent}>
+          <div>
+            <img
+              src={collectionData?.banner_image_url}
+              alt={collectionData?.name}
+              className={classes.banner}
+            />
+          </div>
 
-      <div className={classes.collectionParent}>
-        <div className={classes.collectionImg}>
-          <img
-            src={collectionData?.image_url}
-            alt={collectionData?.name}
-            className={classes.img}
-          />
-        </div>
-        <Typography variant="h4" className={classes.heading}>
-          {collectionData?.name}
-        </Typography>
-      </div>
+          <div className={classes.collectionParent}>
+            <div className={classes.collectionImg}>
+              <img
+                src={collectionData?.image_url}
+                alt={collectionData?.name}
+                className={classes.img}
+              />
+            </div>
+            <Typography variant="h4" className={classes.heading}>
+              {collectionData?.name}
+            </Typography>
+          </div>
 
-      <div className={classes.details}>
-        <div className={classes.col}>
-          <Typography
-            variant="h6"
-            style={{ fontFamily: "Nunito", color: "#5e5e5e" }}
-          >
-            Total Sales
-          </Typography>
-          <Typography variant="h5">
-            {collectionData.stats?.total_sales}
-          </Typography>
+          <div className={classes.details}>
+            <div className={classes.col}>
+              <Typography
+                variant="h6"
+                style={{ fontFamily: "Nunito", color: "#959595" }}
+              >
+                Total Sales
+              </Typography>
+              <Typography variant="h5" style={{ color: "#fff" }}>
+                {kFormatter(collectionData.stats?.total_sales)}
+              </Typography>
+            </div>
+            <div className={classes.col}>
+              <Typography
+                variant="h6"
+                style={{ fontFamily: "Nunito", color: "#959595" }}
+              >
+                Floor Price
+              </Typography>
+              <Typography variant="h5" className={classes.subCol}>
+                <img src={logo} alt="eth" className={classes.ethLogo} />
+                {collectionData.stats?.floor_price.toFixed(2)}
+              </Typography>
+            </div>
+            <div className={classes.col}>
+              <Typography
+                variant="h6"
+                style={{ fontFamily: "Nunito", color: "#959595" }}
+              >
+                Total Supply
+              </Typography>
+              <Typography variant="h5" style={{ color: "#fff" }}>
+                {kFormatter(collectionData.stats?.total_supply)}
+              </Typography>
+            </div>
+            <div className={classes.col}>
+              <Typography
+                variant="h6"
+                style={{ fontFamily: "Nunito", color: "#959595" }}
+              >
+                Avg. Price
+              </Typography>
+              <Typography variant="h5" className={classes.subCol}>
+                <img src={logo} alt="eth" className={classes.ethLogo} />
+                {collectionData.stats?.average_price.toFixed(2)}
+              </Typography>
+            </div>
+          </div>
         </div>
-        <div className={classes.col}>
-          <Typography
-            variant="h6"
-            style={{ fontFamily: "Nunito", color: "#5e5e5e" }}
-          >
-            Floor Price
-          </Typography>
-          <Typography variant="h5" className={classes.subCol}>
-            <img src={logo} alt="eth" className={classes.ethLogo} />
-            {collectionData.stats?.floor_price}
-          </Typography>
+      ) : (
+        <div>
+          <CircularProgress />
         </div>
-        <div className={classes.col}>
-          <Typography
-            variant="h6"
-            style={{ fontFamily: "Nunito", color: "#5e5e5e" }}
-          >
-            Total Supply
-          </Typography>
-          <Typography variant="h5">
-            {collectionData.stats?.total_supply}
-          </Typography>
-        </div>
-        <div className={classes.col}>
-          <Typography
-            variant="h6"
-            style={{ fontFamily: "Nunito", color: "#5e5e5e" }}
-          >
-            Avg. Price
-          </Typography>
-          <Typography variant="h5" className={classes.subCol}>
-            <img src={logo} alt="eth" className={classes.ethLogo} />
-            {collectionData.stats?.average_price}
-          </Typography>
-        </div>
-      </div>
+      )}
     </>
   );
 };

@@ -36,26 +36,23 @@ function App() {
     );
     console.log(response.data.assets);
     setAsset(response.data.assets);
-    setSlug(response.data.assets[0].collection.slug);
+    setSlug(response.data.assets[8].collection.slug);
   };
 
-  const getCollectionData = () => {
+  const getCollectionData = async () => {
     setLoading(true);
-    axios
-      .get(`https://api.opensea.io/collection/${slug}`)
-      .then((res) => setCollectionData(res.data.collection))
-      .catch((err) => console.log(err));
+    const res = await axios.get(`https://api.opensea.io/collection/${slug}`);
+    setCollectionData(res.data.collection);
     setLoading(false);
   };
 
   useEffect(() => {
     getAssets();
-    //getCollectionNameFromAddress();
   }, [wallet]);
 
   useEffect(() => {
     getCollectionData();
-  }, [slug, asset]);
+  }, [slug]);
 
   return (
     <div className="App">
@@ -63,7 +60,7 @@ function App() {
       <p>{message}</p>
       <p>Wallet address: {wallet}</p> */}
       <Collection collectionData={collectionData} loading={loading} />
-      <NftLists assets={asset} />
+      <NftLists assets={asset} setCollectionData={setCollectionData} />
     </div>
   );
 }
