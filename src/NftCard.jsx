@@ -94,11 +94,6 @@ const NftCard = ({ asset, setCollectionData }) => {
               {collectionStat.stats?.average_price.toFixed(2)}
             </Typography>
           </Box>
-          {/* <Box>
-            <Typography variant="body2">
-              {asset?.primary_asset_contracts[0]?.address}
-            </Typography>
-          </Box> */}
         </Box>
       ) : (
         <div>
